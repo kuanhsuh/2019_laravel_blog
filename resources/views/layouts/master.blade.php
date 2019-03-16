@@ -37,6 +37,7 @@
 
     <body>
         @include('layouts.nav')
+        @include('layouts.flash-msg')
 
         @yield('content')
 

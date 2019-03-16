@@ -25,5 +25,12 @@ class PostController extends Controller
             'title' => 'required',
             'body' => 'required'
         ]);
+
+        Post::create([
+            'title' => request('title'),
+            'body' => request('body')
+        ]);
+        session()->flash('message', 'Post was successfully created!');
+        return redirect('/');
     }
 }
