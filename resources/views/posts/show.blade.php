@@ -35,5 +35,10 @@
 </article>
 
 <hr>
+<div class="row justify-content-center">
+  <a href="/posts" class="btn btn-outline-secondary mr-3">Back</a>
+  <a href="#" class="btn btn-outline-danger mr-3">Delete</a>
+  <a href="#" class="btn btn-info">Edit</a>
+</div>
 
 @endsection
