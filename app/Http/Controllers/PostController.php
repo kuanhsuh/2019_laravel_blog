@@ -30,7 +30,7 @@ class PostController extends Controller
             'title' => request('title'),
             'body' => request('body')
         ]);
-        session()->flash('message', 'Post was successfully created!');
+        session()->flash('success', 'Post was successfully created!');
         return redirect('/');
     }
 
@@ -43,5 +43,12 @@ class PostController extends Controller
             session()->flash('error', 'No Post has found');
             return redirect('/');
         }
+    }
+    public function destroy($id)
+    {
+        $post = Post::find($id);
+        $post->delete();
+        session()->flash('success', 'Post been deleted');
+        return redirect('/');
     }
 }

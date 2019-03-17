@@ -1,4 +1,4 @@
-@if ($flash = session('message'))
+@if ($flash = session('success'))
   <div id="flash-message" class="alert alert-success alert-dismissible fade show" role="alert">
     {{ $flash }}
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">

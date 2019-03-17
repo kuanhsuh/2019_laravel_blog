@@ -37,7 +37,11 @@
 <hr>
 <div class="row justify-content-center">
   <a href="/posts" class="btn btn-outline-secondary mr-3">Back</a>
-  <a href="#" class="btn btn-outline-danger mr-3">Delete</a>
+  <form method="POST" action="/posts/{{$post->id}}">
+    @csrf
+    {{ method_field('DELETE') }}
+    <input type="submit" class="btn btn-outline-danger mr-3" value="Delete"/>
+  </form>
   <a href="#" class="btn btn-info">Edit</a>
 </div>
 
