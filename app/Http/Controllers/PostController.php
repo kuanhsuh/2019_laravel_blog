@@ -33,4 +33,15 @@ class PostController extends Controller
         session()->flash('message', 'Post was successfully created!');
         return redirect('/');
     }
+
+    public function show($id)
+    {
+        $post = Post::find($id);
+        if ($post) {
+            return view('posts.show', compact('post'));
+        } else {
+            session()->flash('error', 'No Post has found');
+            return redirect('/');
+        }
+    }
 }

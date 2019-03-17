@@ -1,5 +1,9 @@
 @extends('layouts/master')
 
+@section('page-header')
+    @include('layouts.page-header')
+@endsection
+
 @section('content')
 <!-- Main Content -->
 <div class="container">
