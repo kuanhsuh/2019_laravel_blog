@@ -25,12 +25,22 @@ id="mainNav"
             <li class="nav-item">
                 <a class="nav-link" href="/posts/create">New Post</a>
             </li>
+            @if (auth()->check())
             <li class="nav-item">
-                <a class="nav-link" href="post.html">Sample Post</a>
+                <form method="POST" action="/logout">
+                    @csrf
+                    <button type="submit" class="nav-link">Logout</button>
+                </form>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact</a>
-            </li>
+            @endif
+            @if (!auth()->check())
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/register">Register</a>
+                </li>
+            @endif
         </ul>
     </div>
 </div>
