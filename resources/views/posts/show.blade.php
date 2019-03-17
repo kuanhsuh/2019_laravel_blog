@@ -42,7 +42,7 @@
     {{ method_field('DELETE') }}
     <input type="submit" class="btn btn-outline-danger mr-3" value="Delete"/>
   </form>
-  <a href="#" class="btn btn-info">Edit</a>
+  <a href="/posts/{{$post->id}}/edit" class="btn btn-info">Edit</a>
 </div>
 
 @endsection

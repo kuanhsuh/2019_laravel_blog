@@ -44,6 +44,21 @@ class PostController extends Controller
             return redirect('/');
         }
     }
+    public function edit($id)
+    {
+        $post = Post::find($id);
+        return view('posts.edit', compact('post'));
+    }
+    public function update($id)
+    {
+        // dd("THis is update", request());
+        $post = Post::find($id)->update([
+            'title' => request('title'),
+            'body' => request('body')
+        ]);
+        session()->flash('success', 'Post Updated');
+        return redirect('/');
+    }
     public function destroy($id)
     {
         $post = Post::find($id);
