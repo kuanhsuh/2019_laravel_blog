@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Post;
+use App\Comment;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -43,8 +44,9 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::find($id);
+        $comments = Comment::all();
         if ($post) {
-            return view('posts.show', compact('post'));
+            return view('posts.show', compact('post', 'comments'));
         } else {
             session()->flash('error', 'No Post has found');
             return redirect('/');
@@ -57,7 +59,6 @@ class PostController extends Controller
     }
     public function update($id)
     {
-        // dd("THis is update", request());
         $post = Post::find($id)->update([
             'title' => request('title'),
             'body' => request('body')

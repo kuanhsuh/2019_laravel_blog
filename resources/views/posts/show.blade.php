@@ -45,4 +45,33 @@
   <a href="/posts/{{$post->id}}/edit" class="btn btn-info">Edit</a>
 </div>
 
+<hr>
+<div class="container">
+  <div class="row">
+    <div class="col-md-10">
+      @foreach ($comments as $comment)
+        <div>{{$comment->body}}</div>
+      @endforeach
+      <div></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <form method="POST" action="/posts/{{$post->id}}/comments">
+        @csrf
+        <div class="form-group">
+          <label for="body">Comment</label>
+          <textarea name="body" id="body" class="form-control" cols="30" rows="10"></textarea>
+        </div>
+        <input type="submit" class="btn btn-outline-primary" value="Add Comment"/>
+      </form>
+      @include('layouts.error')
+
+    </div>
+  </div>
+</div>
+
 @endsection
