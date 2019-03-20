@@ -10,7 +10,11 @@
           <div class="col-lg-8 col-md-10 mx-auto">
             <div class="post-heading">
               <h1>{{$post->title}}</h1>
-              <h2 class="subheading">Problems look mighty small from 150 miles up</h2>
+              <h2 class="subheading">Categories
+                @foreach ($post->categories as $category)
+                  {{$category->name}},
+                @endforeach
+              </h2>
               <span class="meta">Posted by
                 <a href="#">{{$post->user->name}}</a>
                 on {{$post->created_at->toFormattedDateString()}}</span>
@@ -49,7 +53,7 @@
 <div class="container">
   <div class="row">
     <div class="col-md-10">
-      @foreach ($comments as $comment)
+      @foreach ($post->comments as $comment)
         <div>{{$comment->body}}</div>
       @endforeach
       <div></div>

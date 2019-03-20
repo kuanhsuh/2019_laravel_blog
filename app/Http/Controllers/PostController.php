@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Post;
 use App\Comment;
+use App\Post;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
 
 class PostController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['index','show']);
+        $this->middleware('auth')->except(['index', 'show']);
     }
 
     public function index()
@@ -29,13 +28,13 @@ class PostController extends Controller
     {
         request()->validate([
             'title' => 'required',
-            'body' => 'required'
+            'body' => 'required',
         ]);
 
         Post::create([
             'title' => request('title'),
             'body' => request('body'),
-            'user_id' => auth()->user()->id
+            'user_id' => auth()->user()->id,
         ]);
         session()->flash('success', 'Post was successfully created!');
         return redirect('/');
@@ -44,9 +43,8 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::find($id);
-        $comments = Comment::all();
         if ($post) {
-            return view('posts.show', compact('post', 'comments'));
+            return view('posts.show', compact('post'));
         } else {
             session()->flash('error', 'No Post has found');
             return redirect('/');
@@ -61,7 +59,7 @@ class PostController extends Controller
     {
         $post = Post::find($id)->update([
             'title' => request('title'),
-            'body' => request('body')
+            'body' => request('body'),
         ]);
         session()->flash('success', 'Post Updated');
         return redirect('/');
