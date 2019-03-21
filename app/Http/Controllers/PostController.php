@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Comment;
 use App\Post;
+use App\Category;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -21,21 +22,26 @@ class PostController extends Controller
 
     public function create()
     {
-        return view('posts.create');
+        $categories = Category::all();
+        return view('posts.create', compact('categories'));
     }
 
     public function store()
     {
+      // dd(request());
         request()->validate([
             'title' => 'required',
             'body' => 'required',
+            'categories' => 'required|not_in:0'
         ]);
 
-        Post::create([
+        $post = Post::create([
             'title' => request('title'),
             'body' => request('body'),
             'user_id' => auth()->user()->id,
         ]);
+
+        $post->categories()->attach(request('categories'));
         session()->flash('success', 'Post was successfully created!');
         return redirect('/');
     }

@@ -17,6 +17,14 @@
           <input type="text" class="form-control" id="title" name="title">
         </div>
         <div class="form-group">
+          <select name="categories" class="custom-select">
+            <option value="0" selected>Open this select menu</option>
+            @foreach ($categories as $category)
+              <option value="{{$category->id}}">{{$category->name}}</option>
+            @endforeach
+          </select>
+        </div>
+        <div class="form-group">
           <label for="body">Body</label>
           <textarea name="body" id="body" class="form-control" cols="30" rows="10"></textarea>
         </div>
