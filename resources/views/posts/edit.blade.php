@@ -18,7 +18,18 @@
           <input type="text" class="form-control" id="title" name="title" value="{{$post->title}}">
         </div>
         <div class="form-group">
-          <label for="body">Body</label>
+          <select multiple name="categories[]" class="form-control">
+            @foreach ($categories as $category)
+              @if ($post->categories->pluck('name')->contains($category->name))
+              <option selected value="{{$category->id}}">{{$category->name}}</option>
+              @else 
+              <option value="{{$category->id}}">{{$category->name}}</option>
+              @endif
+            @endforeach
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="body">Body {{$post->categories->pluck('name')}}</label>
           <textarea name="body" id="body" class="form-control" cols="30" rows="10">{{$post->body}}</textarea>
         </div>
         <div class="form-group">

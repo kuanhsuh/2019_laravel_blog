@@ -22,10 +22,13 @@ id="mainNav"
             <li class="nav-item">
                 <a class="nav-link" href="index.html">Home</a>
             </li>
+            @if (auth()->check())
             <li class="nav-item">
                 <a class="nav-link" href="/posts/create">New Post</a>
             </li>
-            @if (auth()->check())
+            <li class="nav-item">
+                <a class="nav-link" href="/categories/">Categories</a>
+            </li>
             <li class="nav-item">
                 <form method="POST" action="/logout">
                     @csrf

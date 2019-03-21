@@ -8,7 +8,7 @@ class CategoryController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['index']);
+        $this->middleware('auth');
     }
 
     public function index() {
@@ -17,14 +17,21 @@ class CategoryController extends Controller
     }
 
     public function store() {
-      // dd('tesitng', request('category'));
       request()->validate([
         'name' => 'required'
       ]);
+      $catArray = explode(',', request('name'));
 
-      Category::create([
-        'name' => request('name')
-      ]);
+      foreach($catArray as $category) {
+        if (Category::where('name',trim($category))->get()->isEmpty()) {
+          Category::create([
+            'name' => trim($category)
+          ]);
+        } else {
+          session()->flash('error', 'Category ' . trim($category) . ' exists');
+        }
+      }
+      // dd($catArray);
       session()->flash('success', 'Category was successfully created!');
       return redirect('/categories');
     }

@@ -17,8 +17,8 @@
           <input type="text" class="form-control" id="title" name="title">
         </div>
         <div class="form-group">
-          <select name="categories" class="custom-select">
-            <option value="0" selected>Open this select menu</option>
+          <select multiple name="categories[]" class="form-control">
+            <!-- <option value="0" selected>Open this select menu</option> -->
             @foreach ($categories as $category)
               <option value="{{$category->id}}">{{$category->name}}</option>
             @endforeach

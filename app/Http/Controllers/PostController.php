@@ -32,7 +32,7 @@ class PostController extends Controller
         request()->validate([
             'title' => 'required',
             'body' => 'required',
-            'categories' => 'required|not_in:0'
+            'categories' => 'required'
         ]);
 
         $post = Post::create([
@@ -40,8 +40,9 @@ class PostController extends Controller
             'body' => request('body'),
             'user_id' => auth()->user()->id,
         ]);
-
-        $post->categories()->attach(request('categories'));
+        foreach(request('categories') as $category) {
+          $post->categories()->attach($category);
+        }
         session()->flash('success', 'Post was successfully created!');
         return redirect('/');
     }
@@ -59,7 +60,8 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::find($id);
-        return view('posts.edit', compact('post'));
+        $categories = Category::all();
+        return view('posts.edit', compact(['post', 'categories']));
     }
     public function update($id)
     {
