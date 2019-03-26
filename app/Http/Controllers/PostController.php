@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Comment;
-use App\Post;
 use App\Category;
+use App\Post;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -28,11 +27,11 @@ class PostController extends Controller
 
     public function store()
     {
-      // dd(request());
+        // dd(request());
         request()->validate([
             'title' => 'required',
             'body' => 'required',
-            'categories' => 'required'
+            'categories' => 'required',
         ]);
 
         $post = Post::create([
@@ -40,8 +39,8 @@ class PostController extends Controller
             'body' => request('body'),
             'user_id' => auth()->user()->id,
         ]);
-        foreach(request('categories') as $category) {
-          $post->categories()->attach($category);
+        foreach (request('categories') as $category) {
+            $post->categories()->attach($category);
         }
         session()->flash('success', 'Post was successfully created!');
         return redirect('/');
@@ -75,8 +74,13 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::find($id);
-        $post->delete();
-        session()->flash('success', 'Post been deleted');
+        if (auth()->user() == $post->user) {
+            $post->delete();
+            $post->categories()->detach();
+            session()->flash('success', 'Post been deleted');
+        } else {
+            session()->flash('error', 'You can only delete your own post');
+        }
         return redirect('/');
     }
 }

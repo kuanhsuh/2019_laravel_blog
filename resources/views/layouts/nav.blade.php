@@ -18,6 +18,7 @@ id="mainNav"
         <i class="fas fa-bars"></i>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
+      <span class="text-white">Welcome, {{ auth()->user()->name}}</span>
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
                 <a class="nav-link" href="index.html">Home</a>
